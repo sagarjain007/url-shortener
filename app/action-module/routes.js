@@ -13,10 +13,4 @@ router.route("/generateShortUrl").post(generateShortUrl);
 
 router.route("/:urlCode").get(redirectToOriginal);
 
-// router
-//   .route("/urls")
-//     .get(getUrls)
-//     .post(saveUrls)
-//     .delete(deleteUrls);
-
 module.exports = router;

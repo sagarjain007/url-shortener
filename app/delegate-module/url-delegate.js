@@ -22,7 +22,7 @@ module.exports.generateShortUrl = async (req, res) => {
 
 module.exports.redirectToOriginal = async (req, res) => {
   try {
-    console.log(req.params.urlCode)
+    console.log(req.params.urlCode);
     const url = await findUrlByCode(req.params.urlCode);
     if (url) {
       return res.redirect(url.originalUrl);
@@ -34,14 +34,3 @@ module.exports.redirectToOriginal = async (req, res) => {
     res.status(500).json("Server Error");
   }
 };
-// const getUrls = async (req, res) => {
-//   try {
-//     let result = await getUrlsService();
-//     res.json(result);
-//   } catch (error) {
-//     res.status(400).send({
-//       errorName: error.name,
-//       errMessage: error.message,
-//     });
-//   }
-// };

@@ -1,24 +1,16 @@
+require("dotenv").config();
+
 const UrlModel = require("../models/url.model");
 const shortid = require("shortid");
 
-async function getUrlsService() {
-  try {
-    let result = await UrlModel.find({});
-    return result;
-  } catch (error) {
-    throw err;
-  }
-}
-
 module.exports.generateShortUrlService = async (originalUrl) => {
-  baseUrl = "localhost:3000";
   const urlCode = shortid.generate();
 
   let url = await UrlModel.findOne({ originalUrl });
   if (url) {
     return url;
   } else {
-    const shortenedUrl = baseUrl + "/" + urlCode;
+    const shortenedUrl = process.env.BASE_URL + "/" + urlCode;
     url = new UrlModel({
       originalUrl,
       shortenedUrl,
