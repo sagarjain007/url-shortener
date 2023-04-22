@@ -32,7 +32,6 @@ router.get("/ping", (req, res) => {
 
 router.route("/generateShortUrl").post(generateShortUrl);
 
-
 /**
  * @swagger
  * /{urlCode}:
@@ -40,7 +39,7 @@ router.route("/generateShortUrl").post(generateShortUrl);
  *     description: Redirects to the original url
  *     parameters:
  *       - in: path
- *         name: urlCode   
+ *         name: urlCode
  *         required: true
  *         type: string
  *         description: The url code.

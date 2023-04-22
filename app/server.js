@@ -8,7 +8,7 @@ const routes = require("./action-module/routes");
 const mongoose = require("mongoose");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
-var cors = require('cors')
+var cors = require("cors");
 
 process.on("uncaughtException", function (err) {
   console.log(`uncaughtException in FILE: ${fileName}`);
@@ -36,7 +36,6 @@ const mongoConnect = () => {
     }
     console.log("Connected to MongoDB");
   });
-  
 };
 
 mongoConnect();
@@ -53,7 +52,6 @@ mongoose.connection.on("reconnected", () => {
   console.log("Mongoose reconnected");
 });
 
-
 // Extended: https://swagger.io/specification/#infoObject
 const swaggerOptions = {
   swaggerDefinition: {
@@ -62,15 +60,15 @@ const swaggerOptions = {
       title: "Customer API",
       description: "Customer API Information",
       contact: {
-        name: "Amazing Developer"
+        name: "Amazing Developer",
       },
-      servers: ["http://localhost:3000"]
-    }
+      servers: ["http://localhost:3000"],
+    },
   },
-  apis: ['./action-module/*.js']
+  apis: ["./action-module/*.js"],
 };
 
-app.use(cors())
+app.use(cors());
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
