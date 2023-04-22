@@ -10,7 +10,7 @@ module.exports.generateShortUrl = async (req, res) => {
   if (validUrl.isUri(originalUrl)) {
     try {
       let result = await generateShortUrlService(originalUrl);
-      res.json(result);
+      res.status(201).json(result);
     } catch (err) {
       console.log(err);
       res.status(500).json("Server Error");

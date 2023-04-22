@@ -5,8 +5,12 @@ const shortid = require("shortid");
 
 module.exports.generateShortUrlService = async (originalUrl) => {
   const urlCode = shortid.generate();
-
-  let url = await UrlModel.findOne({ originalUrl });
+  let url = await UrlModel.findOneAndUpdate(
+    { originalUrl },  // Filter
+    { $inc: { clicks: 1 } },          // Update
+    { new: true }                      // Options
+  )
+  // let url = await UrlModel.findOne({ originalUrl });
   if (url) {
     return url;
   } else {
@@ -15,6 +19,7 @@ module.exports.generateShortUrlService = async (originalUrl) => {
       originalUrl,
       shortenedUrl,
       urlCode,
+      clicks: 1,
     });
     await url.save();
     return url;
@@ -29,3 +34,8 @@ module.exports.findUrlByCode = async (urlCode) => {
     throw error;
   }
 };
+
+// const findAndUpdateClick = async () => {
+//   let result = 
+//   return result;
+// }

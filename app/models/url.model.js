@@ -6,6 +6,7 @@ const UrlSchema = new Schema({
   shortenedUrl: String,
   urlCode: String,
   timestamp: { type: Date, default: Date.now },
+  clicks: {type: Number, default: 0}
 });
 
 module.exports = mongoose.model("urls", UrlSchema);

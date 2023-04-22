@@ -6,6 +6,9 @@ const bodyParser = require("body-parser");
 const app = express();
 const routes = require("./action-module/routes");
 const mongoose = require("mongoose");
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+var cors = require('cors')
 
 process.on("uncaughtException", function (err) {
   console.log(`uncaughtException in FILE: ${fileName}`);
@@ -49,6 +52,27 @@ mongoose.connection.on("disconnected", () => {
 mongoose.connection.on("reconnected", () => {
   console.log("Mongoose reconnected");
 });
+
+
+// Extended: https://swagger.io/specification/#infoObject
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      version: "1.0.0",
+      title: "Customer API",
+      description: "Customer API Information",
+      contact: {
+        name: "Amazing Developer"
+      },
+      servers: ["http://localhost:3000"]
+    }
+  },
+  apis: ['./action-module/*.js']
+};
+
+app.use(cors())
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use(bodyParser.json());
 app.use(routes);
